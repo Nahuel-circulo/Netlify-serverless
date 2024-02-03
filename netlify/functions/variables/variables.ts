@@ -2,12 +2,18 @@ import type { Handler,HandlerEvent,HandlerContext } from "@netlify/functions"
 
 const handler:Handler = async (event:HandlerEvent, context:HandlerContext) => {
 
+  const myImportantVariable = process.env.MY_IMPORTANT_VARIABLE;
 
-  console.log('Hola mundo desde hello.ts')
+  if(!myImportantVariable){
+    throw 'Missing MY_IMPORTANT_VARIABLE';
+  }
+
+  console.log('Hola mundo desde variables');
+
   return{
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Hola mundo!'
+      myImportantVariable
     }),
     headers: {
       'Content-Type': 'application/json'
